@@ -1,38 +1,84 @@
-.App {
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100vh;
+  background: linear-gradient(to bottom, #87CEEB, #ffffff); /* Sky blue gradient */
+  position: relative;
+  font-family: Arial, sans-serif; /* Set a clean font for the page */
+}
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 250%;
+  min-height: 300px;
+  height: 560px;
+  background: #00264D; /* Navy Blue */
+  animation: wave-animation 10s infinite ease-in-out, wave-updown 6s infinite ease-in-out;
+  z-index: -1;
+  clip-path: ellipse(90% 45% at 30% 100%); /* Moves dip towards center-right */
+}
+
+.wave:nth-child(2) {
+  height: 560px;
+  animation-duration: 12s;
+  animation-delay: -3s;
+  background: #0052A2; /* Slightly lighter navy blue */
+  opacity: 0.8;
+}
+  /*  */
+.wave:nth-child(3) {
+  height: 540px;
+  animation-duration: 14s;
+  animation-delay: -6s;
+  background: #00498D; /* Medium navy blue */
+  opacity: 0.7;
+}
+
+.wave:nth-child(4) {
+  height: 500px;
+  animation-duration: 16s;
+  animation-delay: -9s;
+  background: #02386E; /* Darker navy blue */
+  opacity: 0.6;
+}
+
+/* Balanced motion: right and middle dip more */
+@keyframes wave-animation {
+  0% { transform: translateX(0) skewX(2deg); } 
+  50% { transform: translateX(-5%) skewX(-10deg); } /* Reduces left motion */
+  100% { transform: translateX(0) skewX(2deg); }
+}
+
+/* Smooth floating effect */
+@keyframes wave-updown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-50px); } /* Keeps motion subtle */
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  padding-top: 100px;
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
+  font-size: 1.5em;
 }
 
-.App-link {
-  color: #61dafb;
+/* Add a subtle effect to the button */
+button {
+  background-color: #0A2E3D; 
+  border: none;
+  padding: 15px 30px;
+  color: white;
+  font-size: 1.2em;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button:hover {
+  background-color: #1B4C63; /* Darker shade on hover */
 }
