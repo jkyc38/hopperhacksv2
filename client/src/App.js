@@ -49,23 +49,28 @@ function App() {
     setLocationError('');
 
     const overpassQuery = `
-      [out:json];
-      node["amenity"="restaurant"](around:5000,${location.lat},${location.lng});
-      out body;
+    [out:json];
+    (
+      node["amenity"="restaurant"](around:1000,${location.lat},${location.lng});
+    );
+    out body;
     `;
+
     const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(overpassQuery)}`;
 
     try {
       const response = await fetch(url);
       const data = await response.json();
       const places = data.elements
-        .filter((el) => el.tags && el.tags.amenity === "restaurant" && el.tags.name)
         .map((el) => ({
           id: el.id,
           name: el.tags.name,
           lat: el.lat,
           lng: el.lon
         }));
+      data.elements.forEach(element => {
+        console.log(element);
+      });
       setRestaurants(places);
     } catch (error) {
       console.error("Error fetching restaurants:", error);
