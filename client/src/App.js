@@ -1,10 +1,10 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 function App() {
   const [location, setLocation] = useState(null);
   const [locationError, setLocationError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [restaurants, setRestaurants] = useState([]);
 
   const getLocation = () => {
     setLoading(true);
@@ -17,19 +17,15 @@ function App() {
     }
 
     navigator.geolocation.getCurrentPosition(
-      // Success
       (position) => {
-        console.log("Got location:", position.coords);
         setLocation({
           lat: position.coords.latitude,
           lng: position.coords.longitude
         });
         setLoading(false);
       },
-      // Error
       (error) => {
-        console.error("Location error:", error);
-        switch(error.code) {
+        switch (error.code) {
           case error.PERMISSION_DENIED:
             setLocationError('Please enable location access');
             break;
@@ -47,67 +43,76 @@ function App() {
     );
   };
 
-  const sendLocationToBackend = async () => {
+  const fetchRestaurants = async () => {
     if (!location) return;
+    setLoading(true);
+    setLocationError('');
+
+    const overpassQuery = `
+      [out:json];
+      node["amenity"="restaurant"](around:5000,${location.lat},${location.lng});
+      out body;
+    `;
+    const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(overpassQuery)}`;
 
     try {
-      const response = await fetch('http://localhost:3001/api/nearby-restaurants', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          latitude: location.lat,
-          longitude: location.lng
-        })
-      });
-
+      const response = await fetch(url);
       const data = await response.json();
-      console.log("Restaurants:", data);
-      // Handle the restaurant data here
-      
+      const places = data.elements
+        .filter((el) => el.tags && el.tags.amenity === "restaurant" && el.tags.name)
+        .map((el) => ({
+          id: el.id,
+          name: el.tags.name,
+          lat: el.lat,
+          lng: el.lon
+        }));
+      setRestaurants(places);
     } catch (error) {
       console.error("Error fetching restaurants:", error);
       setLocationError('Failed to get restaurants');
     }
+    setLoading(false);
   };
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Restaurant Finder</h1>
+      <h1 className="text-2xl font-bold mb-4">Restaurant Finder (OpenStreetMap)</h1>
       
-      {loading && (
-        <div className="text-center">
-          <p>Getting your location...</p>
-        </div>
-      )}
+      {loading && <p>Loading...</p>}
 
-      {locationError && (
-        <div className="text-red-500 mb-4">
-          <p>{locationError}</p>
-        </div>
-      )}
+      {locationError && <p className="text-red-500">{locationError}</p>}
 
       {!location && !loading && (
         <button 
           onClick={getLocation}
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
         >
-          Find Restaurants Near Me
+          Find My Location
         </button>
       )}
 
       {location && (
         <div>
-          <p className="mb-2">
-            Location found: {location.lat.toFixed(6)}, {location.lng.toFixed(6)}
-          </p>
+          <p>Location: {location.lat.toFixed(6)}, {location.lng.toFixed(6)}</p>
           <button 
-            onClick={sendLocationToBackend}
-            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+            onClick={fetchRestaurants}
+            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 mt-2"
           >
             Get Nearby Restaurants
           </button>
+        </div>
+      )}
+
+      {restaurants.length > 0 && (
+        <div className="mt-4">
+          <h2 className="text-xl font-bold">Nearby Restaurants:</h2>
+          <ul>
+            {restaurants.map((r) => (
+              <li key={r.id} className="border p-2 mt-2">
+                {r.name} ({r.lat.toFixed(6)}, {r.lng.toFixed(6)})
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </div>
