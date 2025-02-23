@@ -10,6 +10,20 @@ h1 {
   letter-spacing: 3px; /* Slight spacing to give it a bold, strong feel */
 }
 
+h4{
+  font-size: 2rem !important; /* Adjust the size to make it stand out */
+  font-family: 'Pirata One', serif; /* Apply the pirate font */
+  color: #FFD700 !important; /* Golden color */
+  text-shadow: 3px 3px 8px #626262, 0 0 25px #FFD700, 0 0 5px #FFD700; /* Thicker brown outline */
+  -webkit-text-stroke: 1px #626262; ;
+  text-transform: uppercase; /* All caps for more emphasis */
+  letter-spacing: 3px; /* Slight spacing to give it a bold, strong feel */
+}
+
+h2{
+  font-size: 1.5rem !important; /* Adjust the size to make it stand out */
+}
+
 h3, .titleName {
   font-family: 'Pirata One', serif; /* Apply the pirate font */
   color: #FFD700 !important; /* Golden color */
@@ -118,6 +132,21 @@ body {
 @keyframes ship-move {
   0%, 100%{ transform: translateY(0); }
   50% { transform: translateY(-20%); } /* Move the ship left-to-right with the waves */
+}
+
+.shipmoving {
+  position: absolute;
+  bottom: 165px;  /* Positioning the ship near the bottom */
+  left: 10px;    /* Positioning the ship near the left edge */
+  width: 300px;  /* Adjust to a larger size, you can change this to any value */
+  height: auto; 
+  z-index:2;
+  animation: sailing 4s forwards;
+}
+
+@keyframes sailing {
+  0% { transform: translateX(0) translateY(-10%); } /* Start at the initial position */
+  100% { transform: translateX(83vw) translateY(-10%); } /* Moves ship across the screen */
 }
 
 /* Additional content styling */
@@ -297,7 +326,7 @@ button.set-sail:active {
   85% { background-image: url('../public/chestAnimation/frame_18_delay-0.04s.gif'); }
   100% { background-image: url('../public/chestAnimation/frame_19_delay-0.04s.gif'); } /* Last frame */
 }
-
+ 
 /* Chest container with animation */
 .chest-container {
   width: 400px;  /* Width of the chest animation container */
@@ -310,7 +339,7 @@ button.set-sail:active {
   visibility: hidden;  /* Start hidden */
   transition: opacity 0.5s ease-in-out;  /* Smooth transition for opacity change */
   z-index: 4 !important;
-  transform: translateY(140%) translateX(40%);; 
+  transform: translateX(-10%) translateY(60%)
 }  
 
 /* Trigger visibility change after the animation ends */
@@ -322,9 +351,9 @@ button.set-sail:active {
 /* Right-side container to position the chest on the right */
 .right-side-container {
   position: absolute;
-  right: 40px;  /* Distance from the right edge */
-  transform: translateY(-100%);  /* Center the container vertically */ 
-  z-index: -1 !important;
+  right: 0px;  /* Distance from the right edge */
+  z-index: 1 !important;
+  transform: translateY(-170%)
 }
 
 /* Island image (just for context) */
@@ -332,14 +361,49 @@ button.set-sail:active {
   width: 500px;
   height: auto;
   position: absolute;
-  top: 80%;
 }
 
-.scroll{
-  width: 500px;
+/* Right-side container to position the chest on the right */
+.scroll-container {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: 640px; /* Adjust width based on scroll image size */
+  margin: auto;
+  z-index:1 !important;
+  animation: fadeIn 2s 3s forwards;
+  opacity: 0;
+  transform: translateX(25%)
+}
+
+.scroll {
+  width: 100%;
   height: auto;
-  opacity: 0;  /* Start with the image hidden */
-  animation: fadeIn 2s 3s forwards;  /* 2s duration for fade-in */
+  display: block;
+}
+
+.scroll-results {
+  position: absolute; /* Places text on top of the scroll */
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -10%);
+  text-align: center;
+  width: 45%;
+  font-family: 'Pirata One', serif;
+  color: #4B2A07; /* Dark brown for readability */
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+  font-size: 1.0rem;
+}
+
+.restaurant-list {
+  list-style: none;
+  padding: 0;
+}
+
+.restaurant-list li {
+  font-size: 1.2rem;
+  margin-top: 5px;
+  font-weight: bold;
 }
 
 @keyframes fadeIn {
@@ -350,3 +414,9 @@ button.set-sail:active {
     opacity: 1;
   }
 }
+
+@keyframes scroll-move {
+  0%, 100%{ transform: translateY(0); }
+  50% { transform: translateY(-5%); } /* Move the ship left-to-right with the waves */
+}
+

@@ -16,6 +16,7 @@ function GamePage() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [cuisineWeights, setCuisineWeights] = useState({});
+  const [answer, setAnswer] = useState("");
 
   useEffect(() => {
     getLocation();
@@ -110,9 +111,10 @@ function GamePage() {
     }
   };
 
+  
   const handleAnswerClick = (answer) => {
     updateCuisineWeights(answer);
-
+    setAnswer(answer)
     if (currentQuestionIndex + 1 < currentQuestions.length) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
@@ -120,6 +122,21 @@ function GamePage() {
       submitResults();
     }
   };
+
+  const chooseWolfie = () => {
+    if (answer === ""){
+      return <img className="wolfie" src = "eyePatch.png"></img>
+    } else if (answer === "Yes"){
+      return <img className="wolfie" src = "confident.PNG"></img>
+    } else if (answer === "Probably"){
+      return <img className="wolfie" src = "normal.PNG"></img>
+    }else if (answer === "Probably Not"){
+      return <img className="wolfie" src = "thinking.PNG"></img>
+    }else if (answer === "No"){
+      return <img className="wolfie" src = "angry.PNG"></img>
+    }
+
+  }
 
   function returnHome() {
     navigate('/', { replace: true });
@@ -131,12 +148,13 @@ function GamePage() {
     <div className="home-container">
       <div className="wave-static"></div>
    
-      <div className="mt-3 ms-4">
+      <div className="mt-3 ms-5">
         <button className="titleName" onClick={returnHome}>
           Big Back Voyage
         </button>
       </div>
-
+    
+      {chooseWolfie()}
       <img src="greyship.png" className="ship" alt="Ship" />
       <div className="wave-container">
         <div className="wave"></div>

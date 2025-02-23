@@ -2,22 +2,23 @@ import React, {useState, useEffect} from "react";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import '../App.css'; // Ensure your CSS file is imported
+import { useNavigate } from "react-router-dom"; // Import the navigate hook
 import AnimatedGif from "../components/treasureChest";
 
 function Home() {
-  const [isStarted, setIsStarted] = useState(false);
+
+  const [isSailing, setIsSailing] = useState(false);
+  const navigate = useNavigate(); // Initialize the navigate function
+
   const handleSetSailClick = () => {
-    setIsStarted(!isStarted);
+    setIsSailing(true); // Start animation
+    setTimeout(() => {
+      setIsSailing(false); // Reset animation after some time
+      navigate("/game");
+    }, 4000); // Match this duration to your animation time
   };
-  const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true); // This will make the chest visible after a certain time
-    }, 1500); // 2000ms, adjust this based on your animation timing
 
-    return () => clearTimeout(timer); // Cleanup timeout on unmount
-  }, [isStarted]);
 
   return (
     <div className="home-container">
@@ -27,7 +28,7 @@ function Home() {
       
       {/* Waves Background */}
 
-      <img src="greyship.png" className="ship" alt="Ship" />
+      <img src="greyship.png" className={isSailing ? "shipmoving" : "ship"} alt="Ship" />
       <div className="wave-container">
         <div className="wave"></div>
         <div className="wave"></div>
@@ -42,25 +43,9 @@ function Home() {
       <div className="container text-center mt-5">
         
           <h1>Big Back Voyage</h1>
-          <Link to="/game">
-            <Button className="set-sail">Set Sail</Button>
-          </Link>
           
-          {/* <Button onClick={handleSetSailClick}>Hello</Button> */}
-          {/* Render animation and island image after button click */}
-          {isStarted && (
-            <>  
-                  <img src = 'scroll.png' className = "scroll"></img>
-                  <div className="right-side-container">
-                  {isVisible && <img src="island.png" alt="Island" className="island-image" />}
-             
-                  <div className={`chest-container ${isVisible ? 'show' : ''}`}></div>
-                </div>
-
-            </>
-          )}
-
-       
+          <Button className="set-sail" onClick={handleSetSailClick}>Set Sail</Button>
+          
 
       </div>
     </div>
