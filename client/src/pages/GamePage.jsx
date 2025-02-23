@@ -27,7 +27,6 @@ function GamePage() {
         params: { cuisines }
       });
       setCurrentQuestions(response.data);
-      
       // Initialize weights for each cuisine
       const initialWeights = {};
       cuisines.forEach(cuisine => {
@@ -73,7 +72,9 @@ function GamePage() {
       setCuisineWeights(prevWeights => {
         const newWeights = { ...prevWeights };
         currentQuestion.relatedCuisines.forEach(cuisine => {
+          cuisine = cuisine.toLowerCase();
           if (cuisine in newWeights) {
+            //Make it all case insensitive
             newWeights[cuisine] += selectedOption.weight;
           }
         });
@@ -84,7 +85,9 @@ function GamePage() {
 
   const submitResults = async () => {
     try {
+      console.log(cuisineWeights)
       // Find cuisine with highest weight
+      console.log(cuisineWeights)
       const topCuisine = Object.entries(cuisineWeights)
         .reduce((a, b) => a[1] > b[1] ? a : b)[0];
   
@@ -112,7 +115,7 @@ function GamePage() {
 
   const handleAnswerClick = (answer) => {
     updateCuisineWeights(answer);
-
+    console.log(currentQuestions);
     if (currentQuestionIndex + 1 < currentQuestions.length) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
