@@ -239,6 +239,76 @@ button.set-sail:active {
 }
 
 
+/* treasure chest */
 
+/* Optimize the background-image animation for better performance */
+@keyframes chestAnimation {
+  0% { background-image: url('../public/chestAnimation/frame_00_delay-0.04s.gif'); }
+  5% { background-image: url('../public/chestAnimation/frame_00_delay-0.04s.gif'); }
+  10% { background-image: url('../public/chestAnimation/frame_02_delay-0.04s.gif'); }
+  15% { background-image: url('../public/chestAnimation/frame_03_delay-0.04s.gif'); }
+  20% { background-image: url('../public/chestAnimation/frame_04_delay-0.04s.gif'); }
+  25% { background-image: url('../public/chestAnimation/frame_05_delay-0.04s.gif'); }
+  30% { background-image: url('../public/chestAnimation/frame_06_delay-0.04s.gif'); }
+  35% { background-image: url('../public/chestAnimation/frame_07_delay-0.04s.gif'); }
+  40% { background-image: url('../public/chestAnimation/frame_08_delay-0.04s.gif'); }
+  45% { background-image: url('../public/chestAnimation/frame_09_delay-0.04s.gif'); }
+  50% { background-image: url('../public/chestAnimation/frame_11_delay-0.04s.gif'); }
+  55% { background-image: url('../public/chestAnimation/frame_12_delay-0.04s.gif'); }
+  60% { background-image: url('../public/chestAnimation/frame_13_delay-0.04s.gif'); }
+  65% { background-image: url('../public/chestAnimation/frame_14_delay-0.04s.gif'); }
+  70% { background-image: url('../public/chestAnimation/frame_15_delay-0.04s.gif'); }
+  75% { background-image: url('../public/chestAnimation/frame_16_delay-0.04s.gif'); }
+  80% { background-image: url('../public/chestAnimation/frame_17_delay-0.04s.gif'); }
+  85% { background-image: url('../public/chestAnimation/frame_18_delay-0.04s.gif'); }
+  100% { background-image: url('../public/chestAnimation/frame_19_delay-0.04s.gif'); } /* Last frame */
+}
 
+/* Chest container with animation */
+.chest-container {
+  width: 400px;  /* Width of the chest animation container */
+  height: 300px;  /* Height of the chest animation container */
+  background-size: cover;
+  animation: chestAnimation 2s steps(19) forwards;  /* 2s duration, 19 frames */
+  animation-fill-mode: forwards;  /* Keeps the last frame after animation */
+  will-change: background-image;
+  opacity: 0;  /* Start hidden */
+  visibility: hidden;  /* Start hidden */
+  transition: opacity 0.5s ease-in-out;  /* Smooth transition for opacity change */
+}
 
+/* Trigger visibility change after the animation ends */
+.chest-container.show {
+  opacity: 1;  /* Make it visible */
+  visibility: visible;  /* Set visibility to visible */
+}
+
+/* Home container for overall layout */
+.home-container {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Right-side container to position the chest on the right */
+.right-side-container {
+  position: absolute;
+  top: 50%;  /* Vertically center */
+  right: 20px;  /* Distance from the right edge */
+  transform: translateY(-50%);  /* Center the container vertically */
+  z-index: 4;  /* Keep it above the other content */
+}
+
+/* Island image (just for context) */
+.island-image {
+  width: 200px;
+  height: auto;
+  margin-right: -50px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%) translateX(20%);
+  z-index: 3;
+}
