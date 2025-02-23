@@ -29,9 +29,8 @@ Each question should:
 - Be specific about textures, temperatures, and eating experiences
 - Help surface subconscious food desires`,
 
-        userPrompt: `Generate 6-8 craving-focused questions that would help determine what someone wants to eat right now from these available cuisines: ${cuisines.join(', ')}.
-The questions should make people think about specific food experiences and help surface what they're actually craving.
-
+        userPrompt: `I want you to generate 5 craving-focused questions for EACH cuisine in the available cuisines that would help determine what someone wants to eat right now from these available cuisines: ${cuisines.join(', ')}.
+The amount of questions generated should be 5 times the amount of cuisines. The questions should make people think about specific food experiences and help surface what they're actually craving. 
 Format the response as a JSON array where each question object has:
 - id: A unique identifier for the question
 - text: The actual question text
@@ -101,7 +100,7 @@ class QuestionGenerator {
         }
     }
 }
-
+export default QuestionGenerator;
 // Example usage:
 
 // const generator = new QuestionGenerator();
