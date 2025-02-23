@@ -1,8 +1,29 @@
+/* Pirate header styling */
+h1 {
+  font-family: 'Pirata One', serif; /* Apply the pirate font */
+  color: #FFD700 !important; /* Golden color */
+  font-size: 5rem !important; /* Adjust the size to make it stand out */
+  text-shadow: 3px 3px 8px #626262, 0 0 25px #FFD700, 0 0 5px #FFD700; /* Thicker brown outline */
+  -webkit-text-stroke: 1px #626262; ;
+  text-transform: uppercase; /* All caps for more emphasis */
+  letter-spacing: 3px; /* Slight spacing to give it a bold, strong feel */
+}
+
+h3 {
+  font-family: 'Pirata One', serif; /* Apply the pirate font */
+  color: #FFD700 !important; /* Golden color */
+  font-size: 3rem !important; /* Adjust the size to make it stand out */
+  text-shadow: 3px 3px 8px #626262, 0 0 25px #FFD700, 0 0 5px #FFD700; /* Thicker brown outline */
+  -webkit-text-stroke: 1px #626262; ;
+  text-transform: uppercase; /* All caps for more emphasis */
+  letter-spacing: 3px; /* Slight spacing to give it a bold, strong feel */
+}
+
 body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  height: 100vh;
+  min-height: 100vh; /* Ensure the body takes up at least the full height of the viewport */
   background: linear-gradient(to bottom, #87CEEB, #ffffff); /* Sky blue gradient */
   position: relative;
   font-family: Arial, sans-serif; /* Set a clean font for the page */
@@ -10,54 +31,87 @@ body {
 
 .wave {
   position: absolute;
-  bottom: 0;
+  bottom: 0; /* Ensure waves stay at the bottom */
   left: 0;
-  width: 250%;
-  min-height: 300px;
-  height: 560px;
+  width: 250%; /* Allowing wave to extend beyond the viewport */
+  height: 600px; /* Standard height for waves */
   background: #00264D; /* Navy Blue */
-  animation: wave-animation 10s infinite ease-in-out, wave-updown 6s infinite ease-in-out;
-  z-index: -1;
-  clip-path: ellipse(90% 45% at 30% 100%); /* Moves dip towards center-right */
+  animation: wave-animation 12s infinite linear, wave-updown 8s infinite ease-in-out;
+  z-index: 1;
+  clip-path: ellipse(90% 45% at 20% 100%); /* Adjusted to reduce extreme curve */
 }
 
 .wave:nth-child(2) {
-  height: 560px;
-  animation-duration: 12s;
+  z-index: 1;
+  height: 600px;
+  animation-duration: 14s;
   animation-delay: -3s;
   background: #0052A2; /* Slightly lighter navy blue */
-  opacity: 0.8;
+  opacity: 0.75; /* Slightly transparent for layering effect */
+  clip-path: ellipse(90% 48% at 30% 100%);/* More subtle dip for this wave */
 }
-  /*  */
+
 .wave:nth-child(3) {
-  height: 540px;
-  animation-duration: 14s;
+  height: 600px;
+  animation-duration: 16s;
   animation-delay: -6s;
   background: #00498D; /* Medium navy blue */
-  opacity: 0.7;
+  opacity: 0.65; /* More transparent to create depth */
+  clip-path: ellipse(90% 45% at 50% 100%);
 }
 
 .wave:nth-child(4) {
-  height: 500px;
-  animation-duration: 16s;
+  z-index: 2;
+  height: 600px;
+  animation-duration: 18s;
   animation-delay: -9s;
   background: #02386E; /* Darker navy blue */
-  opacity: 0.6;
+  opacity: 0.55; /* Less opacity to create layered effect */
+  clip-path: ellipse(90% 40% at 40% 100%);
 }
 
-/* Balanced motion: right and middle dip more */
+
+
+/* Static wave at the bottom */
+.wave-static {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px; /* Slightly smaller for a cleaner look */
+  background: #003C63; /* Darker shade of navy for contrast */
+  z-index: 0; /* Ensures it stays behind animated waves */
+}
+
+/* Seamless motion for waves */
 @keyframes wave-animation {
-  0% { transform: translateX(0) skewX(2deg); } 
-  50% { transform: translateX(-5%) skewX(-10deg); } /* Reduces left motion */
-  100% { transform: translateX(0) skewX(2deg); }
+  0% { transform: translateX(0) skewX(2deg); }
+  100% { transform: translateX(-0%) skewX(0deg); } /* Smooth continuous movement */
 }
 
 /* Smooth floating effect */
 @keyframes wave-updown {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-50px); } /* Keeps motion subtle */
+  50% { transform: translateY(-20px); } /* Subtle up-down motion for wave */
 }
 
+/* Styling for the ship image */
+.ship {
+  position: absolute;
+  bottom: 165px;  /* Positioning the ship near the bottom */
+  left: 10px;    /* Positioning the ship near the left edge */
+  width: 300px;  /* Adjust to a larger size, you can change this to any value */
+  height: auto; 
+  animation: ship-move 12s infinite linear;
+  z-index: 2;    /* Ensure it appears on top of waves */
+}
+
+@keyframes ship-move {
+  0%, 100%{ transform: translateY(0); }
+  50% { transform: translateY(-20%); } /* Move the ship left-to-right with the waves */
+}
+
+/* Additional content styling */
 .container {
   position: relative;
   z-index: 1;
@@ -67,9 +121,9 @@ body {
   font-size: 1.5em;
 }
 
-/* Add a subtle effect to the button */
+/* Button styling */
 button {
-  background-color: #0A2E3D; 
+  background-color: #0A2E3D;
   border: none;
   padding: 15px 30px;
   color: white;
@@ -80,5 +134,111 @@ button {
 }
 
 button:hover {
-  background-color: #1B4C63; /* Darker shade on hover */
+  background-color: #1B4C63;
 }
+
+button.set-sail {
+  background-color: #654827; /* Dark brown for the pirate feel */
+  color: #FFD700; /* Golden text to match the header */
+  font-size: 1.2em; /* Slightly larger text */
+  padding: 15px 30px;
+  border: 3px solid #FFD700; /* Golden border for a rich look */
+  border-radius: 10px; /* Rounded corners */
+  text-transform: uppercase; /* Make it more bold and dramatic */
+  font-family: 'Pirata One', cursive; /* A more pirate-style font */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+button.set-sail:hover {
+  background-color: #FFD700; /* Golden background on hover */
+  color: #654827; /* Dark brown text */
+  border: 3px solid #654827; /* Dark brown border on hover */
+  transform: scale(1.1); /* Slightly enlarges the button on hover */
+}
+
+button.set-sail:active {
+  transform: scale(0.95); /* Makes the button feel pressed when clicked */
+}
+
+/* Map */
+.image-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.centered-image {
+  width: 60%;
+  max-width: 500px;
+  display: block;
+  z-index: 1;
+  top: 35%;
+  position: absolute;
+  left: 66%; /* Move right */
+  transform: translate(-50%, -50%);
+}
+
+.button-container {
+  position: absolute;
+  top: 45%;
+  left: 66%; /* Move right */
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+}
+
+.textbox {
+  position: absolute;
+  max-width: 450px;
+  width: 300px;
+  top: 28%;
+  left: 66%; /* Move right */
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  color: gold;
+  padding: 15px 10px;
+  font-size: 1.5em;
+  border: 3px solid darkgoldenrod;
+  border-radius: 8px;
+  font-family: 'Pirata One', cursive; /* Add a pirate-like font if available */
+  text-align: center;
+  z-index: 3;
+}
+
+.voyage-button {
+  font-size: 1.2rem;
+  font-weight: bold;
+  width: 300px !important;
+  border: 2px solid darkgoldenrod !important;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  margin: 2px;
+  background-color: rgba(255, 215, 0, 0.8) !important; /* Semi-transparent gold */
+  color: darkred !important;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* wolfie */
+.wolfie{
+  position: absolute;
+  width: 35%;
+  top: 8%;
+  left: 13%; /* Move right */
+  transform: translate(-50%, -50%);
+  animation: wolfie-move 10s infinite linear;
+}
+
+@keyframes wolfie-move {
+  0%, 100%{ transform: translateY(0); }
+  50% { transform: translateY(-5%); } /* Move the ship left-to-right with the waves */
+}
+
+
+
+
+
