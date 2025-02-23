@@ -3,7 +3,7 @@ const examples = [
         "id": "chinese_sweet_savory",
         "text": "Are you craving a dish that balances sweet and savory flavors?",
         "relatedCuisines": [
-            "chinese"
+            "Chinese"
         ],
         "options": [
             {
@@ -32,7 +32,7 @@ const examples = [
         "id": "chinese_crispy_chewy",
         "text": "Would you enjoy something with a mix of crispy and chewy textures?",
         "relatedCuisines": [
-            "chinese"
+            "Chinese"
         ],
         "options": [
             {
@@ -61,7 +61,7 @@ const examples = [
         "id": "chinese_spicy_numbing",
         "text": "Are you in the mood for something spicy and numbing?",
         "relatedCuisines": [
-            "chinese"
+            "Chinese"
         ],
         "options": [
             {
@@ -90,7 +90,7 @@ const examples = [
         "id": "chinese_umami_rich",
         "text": "Do you feel like indulging in something umami-rich?",
         "relatedCuisines": [
-            "chinese"
+            "Chinese"
         ],
         "options": [
             {
@@ -119,7 +119,7 @@ const examples = [
         "id": "chinese_hot_sour",
         "text": "Would you enjoy flavors that are both hot and sour?",
         "relatedCuisines": [
-            "chinese"
+            "Chinese"
         ],
         "options": [
             {
@@ -148,7 +148,7 @@ const examples = [
         "id": "korean_grilled_tender",
         "text": "Are you craving something grilled and tender right now?",
         "relatedCuisines": [
-            "korean"
+            "Korean"
         ],
         "options": [
             {
@@ -177,7 +177,7 @@ const examples = [
         "id": "korean_spicy_fragrant",
         "text": "Do you fancy something spicy and fragrant?",
         "relatedCuisines": [
-            "korean"
+            "Korean"
         ],
         "options": [
             {
@@ -206,7 +206,7 @@ const examples = [
         "id": "korean_kimchi_zingy",
         "text": "Are you in the mood for something with a zingy kimchi flavor?",
         "relatedCuisines": [
-            "korean"
+            "Korean"
         ],
         "options": [
             {
@@ -235,7 +235,7 @@ const examples = [
         "id": "korean_stirfried_healthy",
         "text": "Would you enjoy a healthy stir-fried dish?",
         "relatedCuisines": [
-            "korean"
+            "Korean"
         ],
         "options": [
             {
@@ -264,7 +264,7 @@ const examples = [
         "id": "korean_bowl_crispy",
         "text": "Are you looking for a bowl of food that includes something crispy?",
         "relatedCuisines": [
-            "korean"
+            "Korean"
         ],
         "options": [
             {
@@ -293,7 +293,7 @@ const examples = [
         "id": "japanese_sushi_fresh",
         "text": "Do you feel like indulging in some fresh sushi?",
         "relatedCuisines": [
-            "japanese"
+            "Japanese"
         ],
         "options": [
             {
@@ -322,7 +322,7 @@ const examples = [
         "id": "japanese_ramen_comforting",
         "text": "Are you in the mood for a comforting bowl of ramen?",
         "relatedCuisines": [
-            "japanese"
+            "Japanese"
         ],
         "options": [
             {
@@ -351,7 +351,7 @@ const examples = [
         "id": "japanese_tempura_light",
         "text": "Would you enjoy something light and crispy like tempura?",
         "relatedCuisines": [
-            "japanese"
+            "Japanese"
         ],
         "options": [
             {
@@ -380,7 +380,7 @@ const examples = [
         "id": "japanese_miso_earthy",
         "text": "Do you crave something with an earthy miso flavor?",
         "relatedCuisines": [
-            "japanese"
+            "Japanese"
         ],
         "options": [
             {
@@ -409,7 +409,7 @@ const examples = [
         "id": "japanese_teppanyaki_sizzling",
         "text": "Are you looking for something sizzling like teppanyaki?",
         "relatedCuisines": [
-            "japanese"
+            "Japanese"
         ],
         "options": [
             {
@@ -438,7 +438,7 @@ const examples = [
         "id": "indian_curry_spicy",
         "text": "Would you enjoy a spicy curry dish right now?",
         "relatedCuisines": [
-            "indian"
+            "Indian"
         ],
         "options": [
             {
@@ -467,7 +467,7 @@ const examples = [
         "id": "indian_tandoori_smoky",
         "text": "Do you crave the smoky flavors of tandoori cooking?",
         "relatedCuisines": [
-            "indian"
+            "Indian"
         ],
         "options": [
             {
@@ -496,7 +496,7 @@ const examples = [
         "id": "indian_samosa_crunchy",
         "text": "Are you in the mood for something crunchy like a samosa?",
         "relatedCuisines": [
-            "indian"
+            "Indian"
         ],
         "options": [
             {
@@ -525,7 +525,7 @@ const examples = [
         "id": "indian_naan_soft",
         "text": "Would you like something soft and fluffy like naan bread?",
         "relatedCuisines": [
-            "indian"
+            "Indian"
         ],
         "options": [
             {
@@ -554,7 +554,7 @@ const examples = [
         "id": "indian_mango_luscious",
         "text": "Are you looking for something lusciously mango-flavored?",
         "relatedCuisines": [
-            "indian"
+            "Indian"
         ],
         "options": [
             {
