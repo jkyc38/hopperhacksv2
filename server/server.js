@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors'
 import examples from "./exampletests.js"
+import QuestionGenerator from "./recommendation.js"
+// import OPENAI_KEY from "../../apikeys.js"
 const app = express();
 const PORT = process.env.PORT || 8000;
 
@@ -12,11 +14,22 @@ app.get("/", (req, res) => {
 });
 
 app.get("/cuisine-questions", async (req,res) => {
+  let generator = new QuestionGenerator();
+
   try {
     const cuisines = req.query.cuisines;
-    const resp = examples;
+    const resp = await generator.generateQuestions(cuisines);
+    if(resp){
+      console.log("Making API Call", resp);
+    }
+    // const resp = examples;
     res.json(resp);
   }
+  // try {
+  //   const cuisines = req.query.cuisines;
+  //   const resp = examples;
+  //   res.json(resp);
+  // }
   catch(err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to generate questions' });
