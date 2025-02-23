@@ -28,7 +28,8 @@ export function useRestaurants() {
         id: el.id,
         name: el.tags.name,
         lat: el.lat,
-        lng: el.lon
+        lng: el.lon,
+        cuisines: el.tags.cuisine.split(";"),
       }));
       setRestaurants(places);
     } catch (error) {
