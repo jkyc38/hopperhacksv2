@@ -27,13 +27,11 @@ app.get("/cuisine-questions", async (req,res) => {
 app.post("/submit-result", (req, res) => {
   try {
     const { topCuisine, restaurants } = req.body;
-    console.log(restaurants);
-    console.log(topCuisine);
     // Filter restaurants that match the top cuisine
     const matchingRestaurants = restaurants.filter(restaurant => 
       restaurant.cuisines.includes(topCuisine)
     );
-
+    console.log(matchingRestaurants)
     res.json({ matchingRestaurants });
   } catch(err) {
     console.error(err);
