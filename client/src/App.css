@@ -1,4 +1,5 @@
 /* Pirate header styling */
+/* headers */
 h1 {
   font-family: 'Pirata One', serif; /* Apply the pirate font */
   color: #FFD700 !important; /* Golden color */
@@ -289,15 +290,6 @@ button.set-sail:active {
 .chest-container.show {
   opacity: 1;  /* Make it visible */
   visibility: visible;  /* Set visibility to visible */
-}
-
-/* Home container for overall layout */
-.home-container {
-  position: relative;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 /* Right-side container to position the chest on the right */

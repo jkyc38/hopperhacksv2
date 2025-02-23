@@ -49,9 +49,9 @@ function Home() {
        
           {isStarted && (
             <>
-             
                   <div className="right-side-container">
-                  <img src="island.png" alt="Island" className="island-image" />
+                  {isVisible && <img src="island.png" alt="Island" className="island-image" />}
+             
                   <div className={`chest-container ${isVisible ? 'show' : ''}`}></div>
                 </div>
             </>
