@@ -15,7 +15,7 @@ function GamePage() {
   
   useEffect(() => {
     getLocation();
-  }, [getLocation]);
+  }, []);
 
   // Function to fetch the questions based on cuisines
   async function fetchData() {

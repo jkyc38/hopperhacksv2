@@ -278,13 +278,15 @@ button.set-sail:active {
   width: 400px;  /* Width of the chest animation container */
   height: 300px;  /* Height of the chest animation container */
   background-size: cover;
-  animation: chestAnimation 2s steps(19) forwards;  /* 2s duration, 19 frames */
+  animation: chestAnimation 2.5s steps(19) forwards;  /* 2s duration, 19 frames */
   animation-fill-mode: forwards;  /* Keeps the last frame after animation */
   will-change: background-image;
   opacity: 0;  /* Start hidden */
   visibility: hidden;  /* Start hidden */
   transition: opacity 0.5s ease-in-out;  /* Smooth transition for opacity change */
-}
+  z-index: 4 !important;
+  transform: translateY(140%) translateX(40%);; 
+}  
 
 /* Trigger visibility change after the animation ends */
 .chest-container.show {
@@ -295,20 +297,31 @@ button.set-sail:active {
 /* Right-side container to position the chest on the right */
 .right-side-container {
   position: absolute;
-  top: 50%;  /* Vertically center */
-  right: 20px;  /* Distance from the right edge */
-  transform: translateY(-50%);  /* Center the container vertically */
-  z-index: 4;  /* Keep it above the other content */
+  right: 40px;  /* Distance from the right edge */
+  transform: translateY(-100%);  /* Center the container vertically */ 
+  z-index: -1 !important;
 }
 
 /* Island image (just for context) */
 .island-image {
-  width: 200px;
+  width: 500px;
   height: auto;
-  margin-right: -50px;
   position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%) translateX(20%);
-  z-index: 3;
+  top: 80%;
+}
+
+.scroll{
+  width: 500px;
+  height: auto;
+  opacity: 0;  /* Start with the image hidden */
+  animation: fadeIn 2s 3s forwards;  /* 2s duration for fade-in */
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

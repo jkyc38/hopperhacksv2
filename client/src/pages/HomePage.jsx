@@ -14,7 +14,7 @@ function Home() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true); // This will make the chest visible after a certain time
-    }, 1000); // 2000ms, adjust this based on your animation timing
+    }, 1500); // 2000ms, adjust this based on your animation timing
 
     return () => clearTimeout(timer); // Cleanup timeout on unmount
   }, [isStarted]);
@@ -36,24 +36,27 @@ function Home() {
       </div>
 
       
-
+     
      
       {/* Content of the homepage */}
       <div className="container text-center mt-5">
+        
           <h1>Big Back Voyage</h1>
           <Link to="/BigBack">
             <Button className="set-sail">Set Sail</Button>
           </Link>
-          <Button onClick={handleSetSailClick}>Hello</Button>
+          
+          {/* <Button onClick={handleSetSailClick}>Hello</Button> */}
           {/* Render animation and island image after button click */}
-       
           {isStarted && (
-            <>
+            <>  
+                  <img src = 'scroll.png' className = "scroll"></img>
                   <div className="right-side-container">
                   {isVisible && <img src="island.png" alt="Island" className="island-image" />}
              
                   <div className={`chest-container ${isVisible ? 'show' : ''}`}></div>
                 </div>
+
             </>
           )}
 
