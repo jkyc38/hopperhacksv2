@@ -1,17 +1,23 @@
 import React from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import '../App.css'; // Ensure your CSS file is imported
 
 
 function Test() {
+  const navigate = useNavigate();
+  function returnHome() {
+    navigate('/', { replace : true});
+  }
   return (
     <div className="home-container">
       {/* Static Wave */}
     <div className="wave-static"></div>
     
     <div className="mt-3 ms-4">
-       <h3>Big Back Voyage</h3>
+      <button className="titleName" onClick={returnHome}>
+        Big Back Voyage
+      </button>
         
       </div>
     <img src="eyePatch.png" className="wolfie" alt="Map" />

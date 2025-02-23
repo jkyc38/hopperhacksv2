@@ -9,7 +9,7 @@ h1 {
   letter-spacing: 3px; /* Slight spacing to give it a bold, strong feel */
 }
 
-h3 {
+h3, .titleName {
   font-family: 'Pirata One', serif; /* Apply the pirate font */
   color: #FFD700 !important; /* Golden color */
   font-size: 3rem !important; /* Adjust the size to make it stand out */
@@ -17,6 +17,14 @@ h3 {
   -webkit-text-stroke: 1px #626262; ;
   text-transform: uppercase; /* All caps for more emphasis */
   letter-spacing: 3px; /* Slight spacing to give it a bold, strong feel */
+}
+
+.titleName {
+  background-color: transparent;
+}
+.titleName:hover {
+  cursor: pointer;
+  background-color: transparent;
 }
 
 body {
