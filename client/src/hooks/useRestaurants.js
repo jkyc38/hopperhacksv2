@@ -15,7 +15,7 @@ export function useRestaurants() {
     const overpassQuery = `
     [out:json];
     (
-      node["amenity"="restaurant"](around:1com0000,${location.lat},${location.lng});
+      node["amenity"="restaurant"](around:10000,${location.lat},${location.lng});
     );
     out body;
     `;
