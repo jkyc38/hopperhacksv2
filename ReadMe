@@ -1,1 +1,8 @@
 
+1. git clone [git@github.com:jkyc38/hopperhacksv2.git](https://github.com/jkyc38/hopperhacksv2.git) in the terminal
+2. npm install any lacking dependencies in both client and server
+3. cd to client and run npm install
+4. cd to server and run npm install
+5. run npm start on the server then the client
+6. localhost:3000 should be automatically opened on your browser
+7. Enjoy!
