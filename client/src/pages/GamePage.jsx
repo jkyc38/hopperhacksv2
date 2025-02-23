@@ -1,41 +1,51 @@
 import React, { useEffect, useState } from "react";
+import { Button, ButtonGroup } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 import { useLocation } from '../hooks/useLocation';
 import { useRestaurants } from '../hooks/useRestaurants';
-import axios from 'axios';
+import '../App.css';
 
 function GamePage() {
+  const navigate = useNavigate();
   const { location, locationError, loading: locationLoading, getLocation } = useLocation();
   const { restaurants: restaurantData, error: restaurantsError, loading: restaurantsLoading, fetchRestaurants } = useRestaurants();
   const [cuisines, setCuisines] = useState([]);
   const [restaurantNames, setRestaurantNames] = useState([]);
   const [currentQuestions, setCurrentQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [isLoading, setIsLoading] = useState(false); // Track loading state
-  const [gameStarted, setGameStarted] = useState(false); // Track if game has started
-  
+  const [isLoading, setIsLoading] = useState(true);
+  const [cuisineWeights, setCuisineWeights] = useState({});
+
   useEffect(() => {
     getLocation();
   }, []);
 
-  // Function to fetch the questions based on cuisines
   async function fetchData() {
-    setIsLoading(true); // Set loading to true when fetching
     try {
       const response = await axios.get("http://localhost:8000/cuisine-questions", {
         params: { cuisines }
       });
-      const questions = response.data;
-      setCurrentQuestions(questions);
-      setIsLoading(false); // Set loading to false when done fetching
+      setCurrentQuestions(response.data);
+      
+      // Initialize weights for each cuisine
+      const initialWeights = {};
+      cuisines.forEach(cuisine => {
+        initialWeights[cuisine] = 0;
+      });
+      setCuisineWeights(initialWeights);
+      
+      setIsLoading(false);
     } catch (error) {
       console.error("Axios error:", error);
-      setIsLoading(false); // Set loading to false in case of an error
+      setIsLoading(false);
     }
   }
 
   useEffect(() => {
     if (cuisines.length !== 0) {
-      fetchData(); // Fetch data when cuisines are set
+      setIsLoading(true);
+      fetchData();
     }
   }, [cuisines]);
 
@@ -46,52 +56,113 @@ function GamePage() {
   }, [location]);
 
   useEffect(() => {
-    // Populating cuisines from restaurant data
-    const allCuisines = restaurantData.flatMap(restaurant => restaurant.cuisines);
-    const uniqueCuisines = new Set(allCuisines);
-    setCuisines([...uniqueCuisines]);
-    const allRestaurants = restaurantData.map(restaurant => restaurant.name);
-    setRestaurantNames(allRestaurants);
+    if (restaurantData.length > 0) {
+      const allCuisines = restaurantData.flatMap(restaurant => restaurant.cuisines);
+      const uniqueCuisines = new Set(allCuisines);
+      setCuisines([...uniqueCuisines]);
+      const allRestaurants = restaurantData.map(restaurant => restaurant.name);
+      setRestaurantNames(allRestaurants);
+    }
   }, [restaurantData]);
 
-  // Handle question index change
-  const nextQuestionOrStart = () => {
-    if (!gameStarted) {
-      // If they clicked on it to start the game
-      setGameStarted(true);
-      fetchData();
-      setCurrentQuestionIndex(0);
-      return;
-    } 
+  const updateCuisineWeights = (answer) => {
+    const currentQuestion = currentQuestions[currentQuestionIndex];
+    const selectedOption = currentQuestion.options.find(opt => opt.label.toLowerCase() === answer.toLowerCase());
+    
+    if (selectedOption) {
+      setCuisineWeights(prevWeights => {
+        const newWeights = { ...prevWeights };
+        currentQuestion.relatedCuisines.forEach(cuisine => {
+          if (cuisine in newWeights) {
+            newWeights[cuisine] += selectedOption.weight;
+          }
+        });
+        return newWeights;
+      });
+    }
+  };
+
+  const submitResults = async () => {
+    try {
+      // Find cuisine with highest weight
+      const topCuisine = Object.entries(cuisineWeights)
+        .reduce((a, b) => a[1] > b[1] ? a : b)[0];
+  
+      // Send top cuisine and all restaurants to backend
+      const response = await axios.post("http://localhost:8000/submit-result", {
+        topCuisine,
+        restaurants: restaurantData // Send all restaurant data
+      });
+  
+      // Log matching restaurants
+      console.log("Matching Restaurants:", response.data.matchingRestaurants);
+  
+      // Navigate to results page or handle completion
+      navigate('/results', { 
+        state: { 
+          topCuisine,
+          weights: cuisineWeights,
+          matchingRestaurants: response.data.matchingRestaurants 
+        }
+      });
+    } catch (error) {
+      console.error("Error submitting results:", error);
+    }
+  };
+
+  const handleAnswerClick = (answer) => {
+    updateCuisineWeights(answer);
 
     if (currentQuestionIndex + 1 < currentQuestions.length) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      // If questions are finished, fetch new batch
-      fetchData();
-      setCurrentQuestionIndex(0); // Reset index for new batch
+      // If this was the last question, submit results
+      submitResults();
     }
   };
 
+  function returnHome() {
+    navigate('/', { replace: true });
+  }
+
+  const showLoadingScreen = isLoading || currentQuestions.length === 0;
+
   return (
-    <div className="p-4">
-      <h2>Questions</h2>
-      {locationError && <p className="text-red-500">{locationError}</p>}
-      {restaurantsError && <p className="text-red-500">{restaurantsError}</p>}
-      
-      {/* Only show the question if not loading */}
-      {!isLoading && gameStarted && <p>{currentQuestions[currentQuestionIndex]?.text}</p>}
-
-      {/* Show fetching message when loading */}
-      {isLoading && (
-        <p>{!gameStarted ? "Getting your questions ready!" : "Fetching next batch of questions..."}</p>
-      )}
-
-      {/* Only show the "Next" button if not loading, and when the game is started */}
-      {!isLoading && (
-        <button onClick={nextQuestionOrStart} disabled={isLoading}>
-          {gameStarted ? "Next" : "Start"}
+    <div className="home-container">
+      <div className="wave-static"></div>
+   
+      <div className="mt-3 ms-4">
+        <button className="titleName" onClick={returnHome}>
+          Big Back Voyage
         </button>
+      </div>
+
+      <img src="greyship.png" className="ship" alt="Ship" />
+      <div className="wave-container">
+        <div className="wave"></div>
+        <div className="wave"></div>
+        <div className="wave"></div>
+        <div className="wave"></div>
+      </div>
+
+      {showLoadingScreen ? (
+        <div className="loading-screen">
+          <h2>Loading...</h2>
+        </div>
+      ) : (
+        <div className="image-container">
+          <img src="map.png" className="centered-image" alt="Map" />
+          
+          <div className="textbox">{currentQuestions[currentQuestionIndex]?.text}</div>
+          <div className="button-container">
+            <ButtonGroup vertical>
+              <Button className="voyage-button" onClick={() => handleAnswerClick("Yes")}>Yes</Button>
+              <Button className="voyage-button" onClick={() => handleAnswerClick("No")}>No</Button>
+              <Button className="voyage-button" onClick={() => handleAnswerClick("Probably")}>Probably</Button>
+              <Button className="voyage-button" onClick={() => handleAnswerClick("Probably Not")}>Probably Not</Button>
+            </ButtonGroup>
+          </div>
+        </div>
       )}
     </div>
   );

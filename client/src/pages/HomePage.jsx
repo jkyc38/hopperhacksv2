@@ -42,7 +42,7 @@ function Home() {
       <div className="container text-center mt-5">
         
           <h1>Big Back Voyage</h1>
-          <Link to="/BigBack">
+          <Link to="/game">
             <Button className="set-sail">Set Sail</Button>
           </Link>
           

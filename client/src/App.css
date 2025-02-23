@@ -189,6 +189,12 @@ button.set-sail:active {
   left: 66%; /* Move right */
   transform: translate(-50%, -50%);
 }
+.loading-screen {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 .button-container {
   position: absolute;
@@ -199,6 +205,7 @@ button.set-sail:active {
   flex-direction: column;
   align-items: center;
   z-index: 2;
+  margin-top:10px;
 }
 
 .textbox {
@@ -247,6 +254,24 @@ button.set-sail:active {
   50% { transform: translateY(-5%); } /* Move the ship left-to-right with the waves */
 }
 
+.textbox {
+  max-width: 100%; /* Ensure it takes up available width */
+  max-height: 120px; /* Limit the height of the question box */
+  overflow-y: auto; /* If the text is too long, enable scrolling */
+  word-wrap: break-word; /* Break long words to fit within the container */
+  white-space: normal; /* Allow text to wrap to the next line */
+  font-size: 1.25rem; /* Adjust font size */
+  line-height: 1.5; /* Increase line height for better readability */
+  padding: 10px; /* Add padding around the question text */
+  margin: 10px 0; /* Space above and below the question */
+  border-radius: 8px; /* Optional: rounding the corners */
+}
+
+/* For dynamic font resizing */
+.textbox p {
+  font-size: calc(16px + 0.5vw); /* Dynamically adjust font size based on screen width */
+  text-align: center;
+}
 
 /* treasure chest */
 
